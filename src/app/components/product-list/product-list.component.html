@@ -1,6 +1,8 @@
 <div class="main-content">
     <div class="section-content section-content-p30">
         <div class="container-fluid">
+            <h1>{{categoryName}}</h1>
+            <hr>
             <div class="row">
                 <div *ngFor="let product of products" class="col-md-3">
                     <div class="product-box">
@@ -9,6 +11,9 @@
                         <p>{{product.unitPrice | currency: 'USD'}}</p>
                         <a href="#" class="btn btn-primary bg-1">Add to cart</a>
                     </div>
+                </div>
+                <div *ngIf="products?.length == 0" class="alert alert-warning" role="alert">
+                    No products found :(
                 </div>
             </div>
         </div>
