@@ -6,8 +6,12 @@
             <div class="row">
                 <div *ngFor="let product of products" class="col-md-3">
                     <div class="product-box">
-                        <img src="{{product.imageUrl}}" class="img-responsive"/>
-                        <h1>{{product.name}}</h1>
+                        <a routerLink="/products/{{product.id}}">
+                            <img src="{{product.imageUrl}}" class="img-responsive"/>
+                        </a>
+                        <a routerLink="/products/{{product.id}}">
+                            <h4>{{product.name}}</h4>
+                        </a>
                         <p>{{product.unitPrice | currency: 'USD'}}</p>
                         <a href="#" class="btn btn-primary bg-1">Add to cart</a>
                     </div>
