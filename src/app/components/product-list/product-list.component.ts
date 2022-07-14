@@ -14,7 +14,12 @@ export class ProductListComponent implements OnInit {
   products!: Product[];
   categoryName!: string;
   currentCategoryId!: number;
+  previousCategoryId: number = 1;
   searchMode!: boolean;
+
+  pageSize: number = 10;
+  pageNumber: number = 1;
+  totalElements: number = 0;
 
   constructor(private productService: ProductService,
               private route: ActivatedRoute) { }
@@ -48,9 +53,21 @@ export class ProductListComponent implements OnInit {
       this.categoryName = "Books";
     }
 
-    this.productService.getProductsList(this.currentCategoryId)
-                        .subscribe(data => this.products = data);
+    if(this.previousCategoryId != this.currentCategoryId){
+      this.pageNumber = 1;
+    }
+
+    this.previousCategoryId = this.currentCategoryId;
+
+    console.log(`currentCategoryId=${this.currentCategoryId}, pageNumber=${this.pageNumber}, `)
   
+    this.productService.getProductsListPaginate(this.pageNumber - 1, this.pageSize, this.currentCategoryId)
+                      .subscribe(data => {
+                        this.products = data._embedded.products;
+                        this.pageNumber = data.page.number + 1;
+                        this.pageSize = data.page.size;
+                        this.totalElements = data.page.totalElements;
+                      })
   }
 
 
