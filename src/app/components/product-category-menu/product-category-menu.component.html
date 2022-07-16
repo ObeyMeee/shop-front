@@ -1,12 +1,12 @@
 <nav class="nav flex-column">
-    <div class="btn-group-vertical">
-        <p></p>
-        <div *ngFor="let productCategory of productCategories">
-            <a class="nav-link" 
-                routerLink="/category/{{productCategory.id}}/{{productCategory.name}}" 
-                routerLinkActive="active-link">
-            {{productCategory.name}}
-            </a>
-        </div>
+  <div class="btn-group-vertical">
+    <p></p>
+    <div *ngFor="let productCategory of productCategories">
+      <a class="nav-link"
+         routerLink="/category/{{productCategory.id}}/{{productCategory.name}}"
+         routerLinkActive="active-link">
+        {{productCategory.name}}
+      </a>
     </div>
+  </div>
 </nav>

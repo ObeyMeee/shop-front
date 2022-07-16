@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { map } from 'rxjs';
 import { Product } from 'src/app/common/product';
 import { ProductService } from 'src/app/services/product.service';
+import {CartService} from "../../services/cart.service";
+import {CartItem} from "../../common/cart-item";
 
 @Component({
   selector: 'app-product-list',
@@ -23,6 +24,7 @@ export class ProductListComponent implements OnInit {
 
   previousKeyword!: string;
   constructor(private productService: ProductService,
+              private cartService: CartService,
               private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -58,7 +60,7 @@ export class ProductListComponent implements OnInit {
     const hasCategoryId: boolean = this.route.snapshot.paramMap.has("id");
 
     if(hasCategoryId){
-      this.categoryName = this.route.snapshot.paramMap.get("name")!; 
+      this.categoryName = this.route.snapshot.paramMap.get("name")!;
       this.currentCategoryId = +this.route.snapshot.paramMap.get("id")!;
     }
     else{
@@ -73,7 +75,7 @@ export class ProductListComponent implements OnInit {
     this.previousCategoryId = this.currentCategoryId;
 
     console.log(`currentCategoryId=${this.currentCategoryId}, pageNumber=${this.pageNumber}, `);
-  
+
     this.productService.getProductsListPaginate(this.pageNumber - 1, this.pageSize, this.currentCategoryId)
                       .subscribe(data => {
                         this.products = data._embedded.products;
@@ -87,6 +89,12 @@ export class ProductListComponent implements OnInit {
     this.pageSize = pageSize;
     this.pageNumber = 1;
     this.listProducts();
+  }
+
+  addToCart(product: Product){
+    console.log(`Added product ==> ${product.name} ${product.unitPrice}`)
+    const cartItem = new CartItem(product);
+    this.cartService.addToCart(cartItem);
   }
 
 }
