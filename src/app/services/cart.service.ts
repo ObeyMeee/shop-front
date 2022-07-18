@@ -23,7 +23,7 @@ export class CartService {
     this.calculateCartTotals();
   }
 
-  private calculateCartTotals() {
+  public calculateCartTotals() {
     let totalPriceNext = 0;
     let totalQuantityNext = 0;
 
@@ -43,5 +43,13 @@ export class CartService {
 
     this.totalPrice.next(totalPriceNext);
     this.totalQuantity.next(totalQuantityNext);
+  }
+
+  removeFromCart(cartItem: CartItem) {
+    const index = this.cartItems.indexOf(cartItem);
+
+    if(index != -1){
+      this.cartItems.splice(index, 1);
+    }
   }
 }
