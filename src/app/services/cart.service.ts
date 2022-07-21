@@ -48,7 +48,7 @@ export class CartService {
   removeFromCart(cartItem: CartItem) {
     const index = this.cartItems.indexOf(cartItem);
 
-    if(index != -1){
+    if (index != -1) {
       this.cartItems.splice(index, 1);
     }
   }

@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Product } from 'src/app/common/product';
-import { ProductService } from 'src/app/services/product.service';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {Product} from 'src/app/common/product';
+import {ProductService} from 'src/app/services/product.service';
 import {CartService} from "../../services/cart.service";
 import {CartItem} from "../../common/cart-item";
 
@@ -23,25 +23,28 @@ export class ProductListComponent implements OnInit {
   totalElements: number = 0;
 
   previousKeyword!: string;
+
   constructor(private productService: ProductService,
               private cartService: CartService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute) {
+  }
 
   ngOnInit() {
     this.route.paramMap.subscribe(() => this.listProducts())
   }
 
-  listProducts(){
+  listProducts() {
     this.searchMode = this.route.snapshot.paramMap.has("keyword");
-    if(this.searchMode){
+    if (this.searchMode) {
       this.handleSearchProducts();
-    }else{
+    } else {
       this.handleListProducts();
     }
   }
+
   handleSearchProducts() {
     const keyword = this.route.snapshot.paramMap.get("keyword")!;
-    if(this.previousKeyword != keyword){
+    if (this.previousKeyword != keyword) {
       this.pageNumber = 1;
     }
     this.previousKeyword = keyword;
@@ -49,26 +52,25 @@ export class ProductListComponent implements OnInit {
     console.log(`keyword=${keyword}, pageNumber=${this.pageNumber}, `)
 
     this.productService.searchProductsPaginate(this.pageNumber - 1, this.pageSize, keyword)
-                       .subscribe(data => {
-                                    this.products = data._embedded.products
-                                    this.pageNumber = data.page.number + 1;
-                                    this.totalElements = data.page.totalElements;
-                                  });
+      .subscribe(data => {
+        this.products = data._embedded.products
+        this.pageNumber = data.page.number + 1;
+        this.totalElements = data.page.totalElements;
+      });
   }
 
-  handleListProducts(){
+  handleListProducts() {
     const hasCategoryId: boolean = this.route.snapshot.paramMap.has("id");
 
-    if(hasCategoryId){
+    if (hasCategoryId) {
       this.categoryName = this.route.snapshot.paramMap.get("name")!;
       this.currentCategoryId = +this.route.snapshot.paramMap.get("id")!;
-    }
-    else{
+    } else {
       this.currentCategoryId = 1;
       this.categoryName = "Books";
     }
 
-    if(this.previousCategoryId != this.currentCategoryId){
+    if (this.previousCategoryId != this.currentCategoryId) {
       this.pageNumber = 1;
     }
 
@@ -77,21 +79,21 @@ export class ProductListComponent implements OnInit {
     console.log(`currentCategoryId=${this.currentCategoryId}, pageNumber=${this.pageNumber}, `);
 
     this.productService.getProductsListPaginate(this.pageNumber - 1, this.pageSize, this.currentCategoryId)
-                      .subscribe(data => {
-                        this.products = data._embedded.products;
-                        this.pageNumber = data.page.number + 1;
-                        this.pageSize = data.page.size;
-                        this.totalElements = data.page.totalElements;
-                      })
+      .subscribe(data => {
+        this.products = data._embedded.products;
+        this.pageNumber = data.page.number + 1;
+        this.pageSize = data.page.size;
+        this.totalElements = data.page.totalElements;
+      })
   }
 
-  updatePageSize(pageSize: number){
+  updatePageSize(pageSize: number) {
     this.pageSize = pageSize;
     this.pageNumber = 1;
     this.listProducts();
   }
 
-  addToCart(product: Product){
+  addToCart(product: Product) {
     console.log(`Added product ==> ${product.name} ${product.unitPrice}`)
     const cartItem = new CartItem(product);
     this.cartService.addToCart(cartItem);

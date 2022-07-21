@@ -7,8 +7,8 @@
             <h1>{{categoryName}}</h1>
           </div>
           <div class="col-7">
-            <ngb-pagination [(page)]="pageNumber" [pageSize]="pageSize" [collectionSize]="totalElements"
-                            [boundaryLinks]="true" [maxSize]="4" (pageChange)="listProducts()">
+            <ngb-pagination (pageChange)="listProducts()" [(page)]="pageNumber" [boundaryLinks]="true"
+                            [collectionSize]="totalElements" [maxSize]="4" [pageSize]="pageSize">
             </ngb-pagination>
           </div>
         </div>
@@ -18,7 +18,7 @@
         <div *ngFor="let product of products" class="col-md-3">
           <div class="product-box">
             <a routerLink="/products/{{product.id}}">
-              <img src="{{product.imageUrl}}" class="img-responsive" alt="{{product.name}}"/>
+              <img alt="{{product.name}}" class="img-responsive" src="{{product.imageUrl}}"/>
             </a>
             <a routerLink="/products/{{product.id}}">
               <h4>{{product.name}}</h4>
@@ -40,12 +40,12 @@
           <div class="col-md-6">
             <div class="row">
 
-              <ngb-pagination [(page)]="pageNumber"
-                              [pageSize]="pageSize"
-                              [maxSize]="4"
+              <ngb-pagination (pageChange)="listProducts()"
+                              [(page)]="pageNumber"
                               [boundaryLinks]="true"
                               [collectionSize]="totalElements"
-                              (pageChange)="listProducts()">
+                              [maxSize]="4"
+                              [pageSize]="pageSize">
               </ngb-pagination>
               <div class="col-3">
 

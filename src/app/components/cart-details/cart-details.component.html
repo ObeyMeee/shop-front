@@ -14,7 +14,7 @@
 
           <tbody>
           <tr *ngFor="let cartItem of cartItems">
-            <td><img class="img-responsive" src="{{cartItem.imageUrl}}" alt="{{cartItem.name}}"/></td>
+            <td><img alt="{{cartItem.name}}" class="img-responsive" src="{{cartItem.imageUrl}}"/></td>
 
             <td>
               <p>{{cartItem.name}}</p>
@@ -25,7 +25,7 @@
               <label>Quantity:</label>
               <div class="row no-gutters">
                 <div class="col">
-                  <button class="btn btn-primary btn-sm" (click)="decrementQuantity(cartItem)">
+                  <button (click)="decrementQuantity(cartItem)" class="btn btn-primary btn-sm">
                     <em class="fas fa-minus"></em>
                   </button>
                 </div>
@@ -35,12 +35,12 @@
                 </div>
 
                 <div class="col">
-                  <button class="btn btn-primary btn-sm" (click)="incrementQuantity(cartItem)">
+                  <button (click)="incrementQuantity(cartItem)" class="btn btn-primary btn-sm">
                     <em class="fas fa-plus"></em>
                   </button>
                 </div>
 
-                <button class="btn btn-primary btn-sm mt-2" (click)="remove(cartItem)">
+                <button (click)="remove(cartItem)" class="btn btn-primary btn-sm mt-2">
                   remove
                 </button>
               </div>
@@ -55,7 +55,7 @@
               <p>Total Quantity: {{totalQuantity}}</p>
               <p>Shipping: FREE</p>
               <p>Total Price: {{totalPrice | currency: "USD"}}</p>
-              <a routerLink="/checkout" class="btn btn-primary">Checkout</a>
+              <a class="btn btn-primary" routerLink="/checkout">Checkout</a>
             </td>
           </tr>
           </tbody>

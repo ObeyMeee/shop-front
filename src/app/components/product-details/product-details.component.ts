@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute} from '@angular/router';
-import { Product } from 'src/app/common/product';
-import { ProductService } from 'src/app/services/product.service';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {Product} from 'src/app/common/product';
+import {ProductService} from 'src/app/services/product.service';
 import {CartService} from "../../services/cart.service";
 import {CartItem} from "../../common/cart-item";
 
@@ -17,7 +17,8 @@ export class ProductDetailsComponent implements OnInit {
 
   constructor(private productService: ProductService,
               private cartService: CartService,
-              private route:ActivatedRoute) { }
+              private route: ActivatedRoute) {
+  }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(() => this.handleProductDetails());
