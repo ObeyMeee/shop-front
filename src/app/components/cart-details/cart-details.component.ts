@@ -27,9 +27,9 @@ export class CartDetailsComponent implements OnInit {
     cartItem.quantity--;
     if (cartItem.quantity == 0) {
       this.cartService.removeFromCart(cartItem);
-    } else {
-      this.cartService.calculateCartTotals();
     }
+    this.cartService.calculateCartTotals();
+
   }
 
   remove(cartItem: CartItem) {
