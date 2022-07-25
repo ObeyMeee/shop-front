@@ -34,8 +34,6 @@ export class CheckoutComponent implements OnInit {
 
   ngOnInit(): void {
     this.buildForm();
-    this.cartService.totalQuantity.subscribe(data => this.totalQuantity = data);
-    this.cartService.totalPrice.subscribe(data => this.totalPrice = data);
 
     const currentMonth = new Date().getMonth() + 1;
 
@@ -47,6 +45,13 @@ export class CheckoutComponent implements OnInit {
     })
 
     this.addressService.getCountries().subscribe(data => this.countries = data);
+
+    this.reviewTotals();
+  }
+
+  private reviewTotals() {
+    this.cartService.totalPrice.subscribe(data => this.totalPrice = data);
+    this.cartService.totalQuantity.subscribe(data => this.totalQuantity = data);
   }
 
   getStates(formGroupName: string) {
@@ -168,27 +173,27 @@ export class CheckoutComponent implements OnInit {
       })
     });
   }
-
   get firstName() { return this.checkoutFormGroup.get('customer.firstName'); }
   get lastName(){ return this.checkoutFormGroup.get('customer.lastName'); }
-  get email(){ return this.checkoutFormGroup.get('customer.email'); }
 
+  get email(){ return this.checkoutFormGroup.get('customer.email'); }
   get shippingAddressCountry(){return this.checkoutFormGroup.get('shippingAddress.country');}
   get shippingAddressState(){ return this.checkoutFormGroup.get('shippingAddress.state'); }
   get shippingAddressCity(){ return this.checkoutFormGroup.get('shippingAddress.city'); }
   get shippingAddressStreet(){ return this.checkoutFormGroup.get('shippingAddress.street'); }
-  get shippingAddressZipCode(){ return this.checkoutFormGroup.get('shippingAddress.zipCode'); }
 
+  get shippingAddressZipCode(){ return this.checkoutFormGroup.get('shippingAddress.zipCode'); }
   get billingAddressCountry(){return this.checkoutFormGroup.get('billingAddress.country');}
   get billingAddressState(){ return this.checkoutFormGroup.get('billingAddress.state'); }
   get billingAddressCity(){ return this.checkoutFormGroup.get('billingAddress.city'); }
   get billingAddressStreet(){ return this.checkoutFormGroup.get('billingAddress.street'); }
-  get billingAddressZipCode(){ return this.checkoutFormGroup.get('billingAddress.zipCode'); }
 
+  get billingAddressZipCode(){ return this.checkoutFormGroup.get('billingAddress.zipCode'); }
   get creditCardType(){ return this.checkoutFormGroup.get('creditCard.cardType'); }
   get nameOnCard(){ return this.checkoutFormGroup.get('creditCard.nameOnCard'); }
   get cardNumber(){ return this.checkoutFormGroup.get('creditCard.cardNumber'); }
   get securityCode(){ return this.checkoutFormGroup.get('creditCard.securityCode'); }
   get expirationMonth(){ return this.checkoutFormGroup.get('creditCard.expirationMonth'); }
+
   get expirationYear(){ return this.checkoutFormGroup.get('creditCard.expirationYear'); }
 }

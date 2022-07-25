@@ -23,28 +23,26 @@ export class ProductListComponent implements OnInit {
   totalElements: number = 0;
 
   previousKeyword!: string;
-
   constructor(private productService: ProductService,
               private cartService: CartService,
-              private route: ActivatedRoute) {
-  }
+              private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(() => this.listProducts())
   }
 
-  listProducts() {
+  listProducts(){
     this.searchMode = this.route.snapshot.paramMap.has("keyword");
-    if (this.searchMode) {
+    if(this.searchMode){
       this.handleSearchProducts();
-    } else {
+    }else{
       this.handleListProducts();
     }
   }
 
   handleSearchProducts() {
     const keyword = this.route.snapshot.paramMap.get("keyword")!;
-    if (this.previousKeyword != keyword) {
+    if(this.previousKeyword != keyword){
       this.pageNumber = 1;
     }
     this.previousKeyword = keyword;
@@ -59,18 +57,19 @@ export class ProductListComponent implements OnInit {
       });
   }
 
-  handleListProducts() {
+  handleListProducts(){
     const hasCategoryId: boolean = this.route.snapshot.paramMap.has("id");
 
-    if (hasCategoryId) {
+    if(hasCategoryId){
       this.categoryName = this.route.snapshot.paramMap.get("name")!;
       this.currentCategoryId = +this.route.snapshot.paramMap.get("id")!;
-    } else {
+    }
+    else{
       this.currentCategoryId = 1;
       this.categoryName = "Books";
     }
 
-    if (this.previousCategoryId != this.currentCategoryId) {
+    if(this.previousCategoryId != this.currentCategoryId){
       this.pageNumber = 1;
     }
 
@@ -87,7 +86,7 @@ export class ProductListComponent implements OnInit {
       })
   }
 
-  updatePageSize(pageSize: number) {
+  updatePageSize(pageSize: number){
     this.pageSize = pageSize;
     this.pageNumber = 1;
     this.listProducts();
