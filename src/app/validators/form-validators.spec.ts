@@ -1,4 +1,4 @@
-import { FormValidators } from './form-validators';
+import {FormValidators} from './form-validators';
 
 describe('FormValidators', () => {
   it('should create an instance', () => {
