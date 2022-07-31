@@ -8,9 +8,10 @@ import {Observable} from "rxjs";
 })
 export class CheckoutService {
 
-  constructor(private httpClient:HttpClient) { }
+  constructor(private httpClient: HttpClient) {
+  }
 
-  addOrder(purchase: Purchase): Observable<any>{
+  addOrder(purchase: Purchase): Observable<any> {
     const checkoutUrl = 'http://localhost:8080/api/checkout/purchase';
     return this.httpClient.post<Purchase>(checkoutUrl, purchase);
   }

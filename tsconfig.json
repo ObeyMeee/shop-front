@@ -29,6 +29,6 @@
     "strictInputAccessModifiers": true,
     "esModuleInterop": true,
     "strictTemplates": true,
-    "allowSyntheticDefaultImports" : true
+    "allowSyntheticDefaultImports": true
   }
 }

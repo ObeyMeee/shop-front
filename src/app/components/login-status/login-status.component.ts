@@ -25,13 +25,13 @@ export class LoginStatusComponent implements OnInit {
     )
   }
 
+  logout() {
+    this.oktaAuth.signOut();
+  }
+
   private getUserDetails() {
     if (this.isAuthenticated) {
       this.oktaAuth.getUser().then(result => this.userFullName = result.name);
     }
-  }
-
-  logout() {
-    this.oktaAuth.signOut();
   }
 }

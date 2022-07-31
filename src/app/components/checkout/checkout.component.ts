@@ -179,38 +179,9 @@ export class CheckoutComponent implements OnInit {
           alert(`Oops, something went wrong: ${error.message}`)
         }
       }
-
     );
   }
 
-  private setDataFromCheckout(purchase: Purchase) {
-    purchase.shippingAddress = this.checkoutFormGroup.controls['shippingAddress'].value;
-    const shippingState: State = JSON.parse(JSON.stringify(purchase.shippingAddress.state));
-    const shippingCountry: Country = JSON.parse(JSON.stringify(purchase.shippingAddress.country));
-    purchase.shippingAddress.state = shippingState.name;
-    purchase.shippingAddress.country = shippingCountry.name;
-
-    purchase.billingAddress = this.checkoutFormGroup.controls['billingAddress'].value;
-    const billingState: State = JSON.parse(JSON.stringify(purchase.billingAddress.state));
-    const billingCountry: Country = JSON.parse(JSON.stringify(purchase.billingAddress.country));
-    purchase.billingAddress.state = billingState.name;
-    purchase.billingAddress.country = billingCountry.name;
-
-    purchase.customer = this.checkoutFormGroup.controls['customer'].value;
-  }
-
-  private copyOrderItemsFromCartItemsToPurchase(purchase: Purchase) {
-    const cartItems = this.cartService.cartItems;
-    purchase.orderItems = cartItems.map<OrderItem>(cartItem => new OrderItem(cartItem));
-  }
-
-  private resetCart() {
-    this.cartService.cartItems = [];
-    this.cartService.totalQuantity.next(0);
-    this.cartService.totalPrice.next(0);
-
-    this.router.navigateByUrl("/products");
-  }
   copyShippingAddressToBillingAddress(event: Event) {
     if ((event.target as HTMLInputElement).checked) {
       this.checkoutFormGroup.controls['billingAddress']
@@ -240,6 +211,35 @@ export class CheckoutComponent implements OnInit {
       this.expirationMonths = data;
     })
 
+  }
+
+  private setDataFromCheckout(purchase: Purchase) {
+    purchase.shippingAddress = this.checkoutFormGroup.controls['shippingAddress'].value;
+    const shippingState: State = JSON.parse(JSON.stringify(purchase.shippingAddress.state));
+    const shippingCountry: Country = JSON.parse(JSON.stringify(purchase.shippingAddress.country));
+    purchase.shippingAddress.state = shippingState.name;
+    purchase.shippingAddress.country = shippingCountry.name;
+
+    purchase.billingAddress = this.checkoutFormGroup.controls['billingAddress'].value;
+    const billingState: State = JSON.parse(JSON.stringify(purchase.billingAddress.state));
+    const billingCountry: Country = JSON.parse(JSON.stringify(purchase.billingAddress.country));
+    purchase.billingAddress.state = billingState.name;
+    purchase.billingAddress.country = billingCountry.name;
+
+    purchase.customer = this.checkoutFormGroup.controls['customer'].value;
+  }
+
+  private copyOrderItemsFromCartItemsToPurchase(purchase: Purchase) {
+    const cartItems = this.cartService.cartItems;
+    purchase.orderItems = cartItems.map<OrderItem>(cartItem => new OrderItem(cartItem));
+  }
+
+  private resetCart() {
+    this.cartService.cartItems = [];
+    this.cartService.totalQuantity.next(0);
+    this.cartService.totalPrice.next(0);
+
+    this.router.navigateByUrl("/products");
   }
 
   private reviewTotals() {

@@ -21,7 +21,7 @@ import {OKTA_CONFIG, OktaAuthGuard, OktaAuthModule, OktaCallbackComponent} from 
 
 import MyAppConfig from "./config/my-app-config";
 import {OktaAuth} from "@okta/okta-auth-js";
-import { ProfileComponent } from './components/profile/profile.component';
+import {ProfileComponent} from './components/profile/profile.component';
 
 const oktaConfig = Object.assign({
   onAuthRequired: (oktaAuth, injector) => {
@@ -69,7 +69,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     OktaAuthModule
   ],
-  providers: [ProductService, {provide: OKTA_CONFIG, useValue: {oktaAuth} }],
+  providers: [ProductService, {provide: OKTA_CONFIG, useValue: {oktaAuth}}],
   bootstrap: [AppComponent]
 })
 export class AppModule {

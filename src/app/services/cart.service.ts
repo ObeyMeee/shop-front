@@ -15,7 +15,7 @@ export class CartService {
 
   constructor() {
     const data = JSON.parse(this.storage.getItem('cartItems'));
-    if (data != null){
+    if (data != null) {
       this.cartItems = data;
 
       this.calculateCartTotals();
@@ -50,7 +50,7 @@ export class CartService {
     this.totalQuantity.next(totalQuantityNext);
   }
 
-  persistCartItems(){
+  persistCartItems() {
     this.storage.setItem('cartItems', JSON.stringify(this.cartItems));
   }
 
