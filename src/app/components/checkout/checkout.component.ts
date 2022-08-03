@@ -21,6 +21,8 @@ export class CheckoutComponent implements OnInit {
 
   checkoutFormGroup!: FormGroup;
 
+  storage: Storage= sessionStorage;
+
   totalQuantity!: number;
   totalPrice!: number;
 
@@ -248,6 +250,7 @@ export class CheckoutComponent implements OnInit {
   }
 
   private buildForm() {
+    const userEmail = sessionStorage.getItem('userEmail');
     this.checkoutFormGroup = this.formBuilder.group({
       customer: this.formBuilder.group({
         firstName: new FormControl('', [Validators.required,
@@ -258,7 +261,7 @@ export class CheckoutComponent implements OnInit {
           FormValidators.notIncludeWhiteSpaces,
           Validators.minLength(2)]),
 
-        email: new FormControl('', [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')])
+        email: new FormControl(userEmail, [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')])
       }),
       shippingAddress: this.formBuilder.group({
         country: new FormControl('', Validators.required),

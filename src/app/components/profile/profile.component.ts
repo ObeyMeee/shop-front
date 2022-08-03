@@ -1,4 +1,6 @@
 import {Component, OnInit} from '@angular/core';
+import {OrderHistory} from "../../common/order-history";
+import {OrderHistoryService} from "../../services/order-history.service";
 
 @Component({
   selector: 'app-profile',
@@ -7,10 +9,16 @@ import {Component, OnInit} from '@angular/core';
 })
 export class ProfileComponent implements OnInit {
 
-  constructor() {
+  storage: Storage = sessionStorage;
+  orderHistory: OrderHistory[];
+
+  constructor(private orderHistoryService: OrderHistoryService) {
   }
 
   ngOnInit(): void {
+    const userEmail = sessionStorage.getItem('userEmail');
+    this.orderHistoryService.getOrderHistory(userEmail)
+      .subscribe(result => this.orderHistory = result._embedded.orders);
   }
 
 }

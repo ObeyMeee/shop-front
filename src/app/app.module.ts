@@ -24,7 +24,7 @@ import {OktaAuth} from "@okta/okta-auth-js";
 import {ProfileComponent} from './components/profile/profile.component';
 
 const oktaConfig = Object.assign({
-  onAuthRequired: (oktaAuth, injector) => {
+  onAuthRequired: (_oktaAuth, injector) => {
     const router = injector.get(Router);
     router.navigate('/login');
   }
