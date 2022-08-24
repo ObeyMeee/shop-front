@@ -3,13 +3,14 @@ import {map, Observable} from "rxjs";
 import {Country} from "../common/country";
 import {HttpClient} from "@angular/common/http";
 import {State} from "../common/state";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AddressService {
 
-  private baseUrl: string = 'http://localhost:8080/api'
+  private baseUrl: string = environment.andromedaApiUrl;
 
   constructor(private httpClient: HttpClient) {
   }

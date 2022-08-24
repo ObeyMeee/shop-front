@@ -12,7 +12,7 @@ import {CartItem} from "../../common/cart-item";
 })
 export class ProductDetailsComponent implements OnInit {
 
-  product!: Product;
+  product: Product;
 
 
   constructor(private productService: ProductService,

@@ -3,6 +3,7 @@ import {Injectable} from '@angular/core';
 import {map, Observable} from 'rxjs';
 import {Product} from '../common/product';
 import {ProductCategory} from '../common/product-category';
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +11,8 @@ import {ProductCategory} from '../common/product-category';
 export class ProductService {
 
 
-  private baseUrl = "http://localhost:8080/api";
-  private SEARCH_PRODUCTS = "/products/search";
+  private baseUrl = environment.andromedaApiUrl;
+  private SEARCH_PRODUCTS = "products/search";
 
   constructor(private httpClient: HttpClient) {
   }
@@ -20,8 +21,11 @@ export class ProductService {
                           pageSize: number,
                           categoryId: number): Observable<GetResponseProducts> {
 
-    const searchUrl = `${this.baseUrl}${this.SEARCH_PRODUCTS}/findByCategoryId?id=${categoryId}&page=${pageNumber}&size=${pageSize}`;
-
+    const searchUrl = `${this.baseUrl}/${this.SEARCH_PRODUCTS}/findByCategoryId?id=${categoryId}&page=${pageNumber}&size=${pageSize}`;
+    console.log(" ===================== Into service ==============")
+    console.log(`page number ==> ${pageNumber}`)
+    console.log(`page number ==> ${pageSize}`)
+    console.log(`page number ==> ${categoryId}`)
     return this.httpClient.get<GetResponseProducts>(searchUrl);
   }
 
@@ -34,7 +38,7 @@ export class ProductService {
   searchProductsPaginate(pageNumber: number,
                          pageSize: number,
                          keyword: string): Observable<GetResponseProducts> {
-    const searchUrl = `${this.baseUrl}${this.SEARCH_PRODUCTS}/findByNameContainingIgnoreCase?name=${keyword}`
+    const searchUrl = `${this.baseUrl}/${this.SEARCH_PRODUCTS}/findByNameContainingIgnoreCase?name=${keyword}`
       + `&page=${pageNumber}&size=${pageSize}`;
     return this.httpClient.get<GetResponseProducts>(searchUrl);
   }

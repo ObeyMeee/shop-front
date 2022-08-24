@@ -10,7 +10,7 @@ import {OrderHistoryService} from "../../services/order-history.service";
 export class ProfileComponent implements OnInit {
 
   storage: Storage = sessionStorage;
-  orderHistory: OrderHistory[];
+  orderHistory: OrderHistory[] = [];
 
   constructor(private orderHistoryService: OrderHistoryService) {
   }

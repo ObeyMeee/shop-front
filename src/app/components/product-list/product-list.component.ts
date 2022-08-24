@@ -12,7 +12,7 @@ import {CartItem} from "../../common/cart-item";
 })
 export class ProductListComponent implements OnInit {
 
-  products!: Product[];
+  products: Product[] = [];
   categoryName!: string;
   currentCategoryId!: number;
   previousCategoryId: number = 1;
@@ -73,7 +73,10 @@ export class ProductListComponent implements OnInit {
     }
 
     this.previousCategoryId = this.currentCategoryId;
-
+    console.log(" ===================== Into component ==============")
+    console.log(`page number ==> ${this.pageNumber}`)
+    console.log(`page number ==> ${this.pageSize}`)
+    console.log(`page number ==> ${this.currentCategoryId}`)
     this.productService.getProductsListPaginate(this.pageNumber - 1, this.pageSize, this.currentCategoryId)
       .subscribe(data => {
         this.products = data._embedded.products;

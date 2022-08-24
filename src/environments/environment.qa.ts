@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  andromedaApiUrl: "https://localhost:8443/api"
+  andromedaApiUrl: "https://localhost:9898/api"
 };
 
 /*
