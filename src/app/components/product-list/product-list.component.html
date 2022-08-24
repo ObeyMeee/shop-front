@@ -7,8 +7,12 @@
             <h1>{{categoryName}}</h1>
           </div>
           <div class="col-7">
-            <ngb-pagination (pageChange)="listProducts()" [(page)]="pageNumber" [boundaryLinks]="true"
-                            [collectionSize]="totalElements" [maxSize]="4" [pageSize]="pageSize">
+            <ngb-pagination [(page)]="pageNumber"
+                            (pageChange)="listProducts()"
+                            [boundaryLinks]="true"
+                            [collectionSize]="totalElements"
+                            [maxSize]="4"
+                            [pageSize]="pageSize">
             </ngb-pagination>
           </div>
         </div>
@@ -40,8 +44,8 @@
           <div class="col-md-6">
             <div class="row">
 
-              <ngb-pagination (pageChange)="listProducts()"
-                              [(page)]="pageNumber"
+              <ngb-pagination [(page)]="pageNumber"
+                              (pageChange)="listProducts()"
                               [boundaryLinks]="true"
                               [collectionSize]="totalElements"
                               [maxSize]="4"
