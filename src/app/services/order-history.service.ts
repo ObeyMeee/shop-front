@@ -12,7 +12,8 @@ export class OrderHistoryService {
   constructor(private httpClient: HttpClient) { }
 
   getOrderHistory(email: string): Observable<GetResponseOrderHistory>{
-    const searchUrl = `${environment.andromedaApiUrl}/search/findByCustomer_EmailOrderByDateCreatedDesc?email=${email}`;
+    const searchUrl = `${environment.andromedaApiUrl}` +
+                      `/orders/search/findByCustomer_EmailOrderByDateCreatedDesc?email=${email}`;
     return this.httpClient.get<GetResponseOrderHistory>(searchUrl);
   }
 }
