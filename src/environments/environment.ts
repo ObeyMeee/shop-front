@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  andromedaApiUrl: "https://localhost:8443/api"
+  andromedaApiUrl: "https://localhost:8443/api",
+  stripePublishableKey: "pk_test_51LafikEOFiFslCVO5HX0p7qmsW30LzNmY01eZvtIXC5tdtGikaAEJr8sRSBCZV2Gcg3dilHx3owPaMrju9UU5O14002P52Yjd7"
 };
 
 /*

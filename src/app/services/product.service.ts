@@ -22,10 +22,6 @@ export class ProductService {
                           categoryId: number): Observable<GetResponseProducts> {
 
     const searchUrl = `${this.baseUrl}/${this.SEARCH_PRODUCTS}/findByCategoryId?id=${categoryId}&page=${pageNumber}&size=${pageSize}`;
-    console.log(" ===================== Into service ==============")
-    console.log(`page number ==> ${pageNumber}`)
-    console.log(`page number ==> ${pageSize}`)
-    console.log(`page number ==> ${categoryId}`)
     return this.httpClient.get<GetResponseProducts>(searchUrl);
   }
 
