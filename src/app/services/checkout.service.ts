@@ -9,11 +9,10 @@ import {PaymentInfo} from "../common/payment-info";
   providedIn: 'root'
 })
 export class CheckoutService {
+  private baseUrl: string = environment.andromedaApiUrl;
 
   constructor(private httpClient: HttpClient) {
   }
-
-  private baseUrl: string = environment.andromedaApiUrl;
 
   addOrder(purchase: Purchase): Observable<any> {
     const checkoutUrl = `${this.baseUrl}/checkout/purchase`;

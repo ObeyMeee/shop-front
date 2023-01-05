@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {CartService} from "../../services/cart.service";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {ExpirationDateService} from "../../services/expiration-date.service";
 import {Country} from "../../common/country";
 import {State} from "../../common/state";
 import {AddressService} from "../../services/address.service";
@@ -40,7 +39,6 @@ export class CheckoutComponent implements OnInit {
   billingAddressStates: State[] = [];
 
   constructor(private cartService: CartService,
-              private expirationDateService: ExpirationDateService,
               private addressService: AddressService,
               private checkoutService: CheckoutService,
               private router: Router,
@@ -99,7 +97,6 @@ export class CheckoutComponent implements OnInit {
     return this.checkoutFormGroup.get('billingAddress.zipCode');
   }
 
-
   ngOnInit(): void {
     this.buildForm();
     this.setupStripePaymentForm();
@@ -136,7 +133,6 @@ export class CheckoutComponent implements OnInit {
           Validators.minLength(2),
           FormValidators.notOnlyWhiteSpaces]),
       }),
-
       billingAddress: this.formBuilder.group({
         country: new FormControl('', Validators.required),
         state: new FormControl('', Validators.required),
@@ -160,7 +156,7 @@ export class CheckoutComponent implements OnInit {
   }
 
   private setupStripePaymentForm() {
-    let elements = this.stripe.elements();
+    const elements = this.stripe.elements();
     this.cardElement = elements.create('card', {hidePostalCode: true});
     this.cardElement.mount('#card-element');
 
@@ -176,10 +172,12 @@ export class CheckoutComponent implements OnInit {
   }
 
   getStates(formGroupName: string) {
-
     const formGroup = this.checkoutFormGroup.get(formGroupName);
+    console.log(formGroup)
+    console.log(formGroup.value)
+    console.log(formGroup.value.country)
     const countryCode = formGroup?.value.country.code;
-
+    console.log(countryCode)
     this.addressService.getStatesByCountryCode(countryCode).subscribe(data => {
       if (formGroupName == 'shippingAddress') {
         this.shippingAddressStates = data;
@@ -270,19 +268,20 @@ export class CheckoutComponent implements OnInit {
   }
 
   private setDataFromCheckout(purchase: Purchase) {
-    purchase.shippingAddress = this.checkoutFormGroup.controls['shippingAddress'].value;
-    const shippingState: State = JSON.parse(JSON.stringify(purchase.shippingAddress.state));
-    const shippingCountry: Country = JSON.parse(JSON.stringify(purchase.shippingAddress.country));
-    purchase.shippingAddress.state = shippingState.name;
-    purchase.shippingAddress.country = shippingCountry.name;
-
-    purchase.billingAddress = this.checkoutFormGroup.controls['billingAddress'].value;
-    const billingState: State = JSON.parse(JSON.stringify(purchase.billingAddress.state));
-    const billingCountry: Country = JSON.parse(JSON.stringify(purchase.billingAddress.country));
-    purchase.billingAddress.state = billingState.name;
-    purchase.billingAddress.country = billingCountry.name;
-
+    this.setAddressCountryAndState(purchase, 'shippingAddress');
+    this.setAddressCountryAndState(purchase, 'billingAddress');
     purchase.customer = this.checkoutFormGroup.controls['customer'].value;
+  }
+
+  private setAddressCountryAndState(purchase: Purchase, addressType: string) {
+    purchase[addressType] = this.checkoutFormGroup.controls[addressType].value;
+    this.setAddressField(purchase, addressType, 'state');
+    this.setAddressField(purchase, addressType, 'country');
+  }
+
+  private setAddressField(purchase: Purchase, addressType: string, addressField: string) {
+    const addressState = JSON.parse(JSON.stringify(purchase[addressType][addressField]));
+    purchase[addressType][addressField] = addressState.name;
   }
 
   private copyOrderItemsFromCartItemsToPurchase(purchase: Purchase) {

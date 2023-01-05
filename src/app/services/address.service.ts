@@ -23,7 +23,8 @@ export class AddressService {
 
   getStatesByCountryCode(code: string): Observable<State[]> {
     const searchUrl = `${this.baseUrl}/states/search/findByCountryCode?code=${code}`;
-    return this.httpClient.get<GetResponseStates>(searchUrl).pipe(map(response => response._embedded.states))
+    return this.httpClient.get<GetResponseStates>(searchUrl)
+      .pipe(map(response => response._embedded.states))
   }
 }
 

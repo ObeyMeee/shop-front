@@ -19,6 +19,15 @@ export class CartDetailsComponent implements OnInit {
     this.setCartItems();
   }
 
+  private setCartItems() {
+    this.cartItems = this.cartService.cartItems;
+
+    this.cartService.totalPrice.subscribe(data => this.totalPrice = data);
+    this.cartService.totalQuantity.subscribe(data => this.totalQuantity = data);
+
+    this.cartService.calculateCartTotals();
+  }
+
   incrementQuantity(cartItem: CartItem) {
     this.cartService.addToCart(cartItem)
   }
@@ -34,15 +43,6 @@ export class CartDetailsComponent implements OnInit {
 
   remove(cartItem: CartItem) {
     this.cartService.removeFromCart(cartItem);
-    this.cartService.calculateCartTotals();
-  }
-
-  private setCartItems() {
-    this.cartItems = this.cartService.cartItems;
-
-    this.cartService.totalPrice.subscribe(data => this.totalPrice = data);
-    this.cartService.totalQuantity.subscribe(data => this.totalQuantity = data);
-
     this.cartService.calculateCartTotals();
   }
 }

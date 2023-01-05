@@ -30,8 +30,7 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   addToCart() {
-    console.log(`Added product ==> ${this.product.name} ${this.product.unitPrice}`);
-    let cartItem = new CartItem(this.product);
+    const cartItem = new CartItem(this.product);
     this.cartService.addToCart(cartItem);
   }
 }
