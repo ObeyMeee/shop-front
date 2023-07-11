@@ -1,14 +1,17 @@
 # Shop
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.0.4.
+This is the front-end part of the 'Shop' project. I worked on this project while going through the Udemy course [Full Stack: Angular and Java Spring Boot E-Commerce Website](https://www.udemy.com/course/full-stack-angular-spring-boot-tutorial/).
 
-## Development server
+## 💡 Functionality
 
-1. Run `npm install --force --legacy-peer-deps` to download dependencies
-2. Run `npm start` or `ng serve --ssl=true --ssl-key=./ssl-localhost/localhost.key --ssl-cert=./ssl-localhost/localhost.crt` for a dev server. Navigate to `https://localhost:4200/`. The application will automatically reload if you
-change any of the source files.
+Anonymous users can log in, view a list of products, and see product details.  
+Authenticated users can add products to the cart, make purchases, and view their order history.
 
-## Code scaffolding
+## 🔑 Value of the Project
 
-Run `ng generate component component-name` to generate a new component. You can also
-use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Through this project, I learned the basics of Angular, Spring REST, and Okta (Identity and access management solution). The most important part was understanding how the backend and frontend work together and communicate with each other. Additionally, I gained knowledge about securing requests and the concept of JWT (JSON Web Tokens). I used the Stripe API for payment processing.
+
+## 🚀 Development Server
+
+1. Run npm install --force --legacy-peer-deps to download dependencies.
+2. Run npm start to start the development server. Navigate to https://localhost:4200/. The application will automatically reload if you make any changes to the source files.
